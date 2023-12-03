@@ -3,16 +3,17 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import {createMemoryHistory, createBrowserHistory} from 'history';
 
-const mount = (el, {onNavigate, defaultHistory, initialPath}) => {
+const mount = (el, {onNavigate, onSignIn,  defaultHistory, initialPath}) => {
     const history = defaultHistory || createMemoryHistory({
         initialEntries: [initialPath],
     });
     if(onNavigate){
         history.listen(onNavigate);
     }
+    console.log('AuthAPP bootsptarp', onSignIn)
 
     ReactDOM.render(
-        <App history={history}/>,
+        <App onSignIn={onSignIn} history={history}/>,
         el
     );
 
@@ -28,7 +29,7 @@ const mount = (el, {onNavigate, defaultHistory, initialPath}) => {
 
 
 if(process.env.NODE_ENV === 'development'){
-    const el = document.querySelector('#_marketing-dev-root');
+    const el = document.querySelector('#_auth-dev-root');
     if(el){
         mount(el, {defaultHistory: createBrowserHistory()});
     }
